@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="text-center">
     <h1>{{titolo}}</h1>
     <h2>{{sottotitolo}}</h2>
 </div> 

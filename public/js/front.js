@@ -37536,7 +37536,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "text-center" }, [
     _c("h1", [_vm._v(_vm._s(_vm.titolo))]),
     _vm._v(" "),
     _c("h2", [_vm._v(_vm._s(_vm.sottotitolo))]),

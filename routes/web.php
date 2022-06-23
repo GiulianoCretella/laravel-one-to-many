@@ -28,6 +28,7 @@ Route::middleware('auth')
     Route::get('/', 'HomeController@index')
     ->name('home');
     Route::resource('/posts','PostController');
+    Route::resource('/categories','CategoryController');
 
 });
 
