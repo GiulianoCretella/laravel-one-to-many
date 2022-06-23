@@ -1,11 +1,16 @@
-@extends('layouts.admin');
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-6">
             <div class="card">
-                <a href="{{route('admin.posts.index')}}"><h4>Torna ai Post</h4></a>
+                <a href="{{route('admin.posts.index')}}"><h4>Ai Post</h4></a>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <a href="{{route('admin.categories.index')}}"><h4>Alle Categorie</h4></a>
             </div>
         </div>
     </div>

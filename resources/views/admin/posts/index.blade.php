@@ -1,4 +1,4 @@
-@extends('layouts.admin');
+@extends('layouts.admin')
 
 @section('content')
 <a href="{{route('admin.posts.create')}}">Crea nuovo post</a>
