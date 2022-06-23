@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Category;
 use App\Post;
 
@@ -27,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -38,7 +39,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $newCategory = new Category();
+        $newCategory->name = $data['name'];
+        $slug = Str::of($data['name'])->slug("-");
+        $newCategory->slug = $this->getSlug($data['name']);
+        $newCategory->save();
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -84,5 +92,16 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function getSlug($title)
+    {
+        $slug = Str::of($title)->slug("-");
+        $count = 1;
+
+        while(Category::where('slug',$slug)->first()){
+            $slug = Str::of($data['name'])->slug("-")."-{$count}";
+            $count++;
+        };
+        return $slug;
     }
 }

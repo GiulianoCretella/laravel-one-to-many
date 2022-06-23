@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+<a href="{{route('admin.categories.create')}}">Crea nuova categoria</a>
 <div class="container">
     <div class="row">
         @foreach ($categories as $category)
