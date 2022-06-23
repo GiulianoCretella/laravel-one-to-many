@@ -8,6 +8,7 @@
         <div class="col-2">
             <div class="card text-center">
                 <a href="{{route('admin.categories.show',$category->id)}}"><h5>{{$category->name}}</h5></a>
+                <a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-primary">Modifica</a></td>
             </div>
         </div>
         @endforeach

@@ -104,7 +104,7 @@ class PostController extends Controller
                 $post->slug = $this->getSlug($post->title);
             }
         }
-        $post->content = $data['content'];+
+        $post->content = $data['content'];
         $post->category_id = $data['category_id'];
         $post->published = isset($data['published']);
         $post->update($data);
