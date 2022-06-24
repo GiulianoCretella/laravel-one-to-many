@@ -26,12 +26,26 @@
     </div>
     <div class="form-group">
       <label for="category">Category</label>
-     <select name="category_id" id="category" class="form-control">
+      <select name="category_id" id="category" class="form-control @error('category_id') is_invalid @enderror">
         <option value="">Scegli la portata</option>
-      @foreach ($categories as $category)
+        @foreach ($categories as $category)
         <option value="{{$category->id}}">{{$category->name}}</option>
-      @endforeach
+        @endforeach
+        @error('category_id')
+          <div class="alert alert-danger">{{$message}}</div>
+        @enderror
      </select>
+    </div>
+    <div class="form-group">
+      <h5>Tags</h5>
+      @foreach($tags as $tag)
+      <div class="form-check-inline">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="{{$tag->slug}}" name="tags[]" value="{{$tag->id}}" {{in_array($tag->id,old("tags",[]))}}>
+          <label class="form-check-label" for="{{$tag->slug}}">{{$tag->slug}}</label>
+        </div>
+      </div>
+      @endforeach
     </div>
     <div class="form-check">
       <input type="checkbox" class="form-check-input" id="published" name="published" {{old('published') ? 'checked': ''}}>

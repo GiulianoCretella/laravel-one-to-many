@@ -21,6 +21,9 @@
                 <p>{{$post->category ? $post->category->name : ''}}</p>
                 <img src="{{$post->image}}" alt="">
                 <p>{{$post->content}}</p>
+                @foreach ($post->tags as $item)
+                    <span>{{$item->name}}</span>
+                @endforeach
             </div>
         </div>
     </div>

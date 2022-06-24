@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -14,7 +15,8 @@ class PostController extends Controller
         'title'=> 'required|max:100',
         'content'=> 'required',
         'published'=>'sometimes|accepted',
-        'category_id'=>'nullable|exists:categories,id'
+        'category_id'=>'nullable|exists:categories,id',
+        'tags'=>'nullable|exists:tags,id'
     ];
     /**
      * Display a listing of the resource.
@@ -34,8 +36,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags= Tag::all();
         $categories = Category::all();
-        return view('admin.posts.create',compact('categories'));
+        return view('admin.posts.create',compact('categories','tags'));
     }
 
     /**
@@ -57,6 +60,9 @@ class PostController extends Controller
         $slug = Str::of($data['title'])->slug("-");
         $newPost->slug = $this->getSlug($data['title']);
         $newPost->save();
+        if(isset($data['tags'])){
+            $newPost->tags()->sync($data['tags']);
+        }
 
         return redirect()->route('admin.posts.show',$newPost->id);
     }
@@ -80,9 +86,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $tags= Tag::all();
         $categories = Category::all();
         $post=Post::findOrFail($id);
-        return view('admin.posts.edit', compact('post','categories'));
+        return view('admin.posts.edit', compact('post','categories','tags'));
     }
 
     /**
@@ -108,7 +115,9 @@ class PostController extends Controller
         $post->category_id = $data['category_id'];
         $post->published = isset($data['published']);
         $post->update($data);
-
+        if(isset($data['tags'])){
+            $post->tags()->sync($data['tags']);
+        }
         return redirect()->route('admin.posts.show',$post->id); 
     }
 
@@ -121,6 +130,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        $post->tags()->sync([]);
         $post->delete();
         return redirect()->route('admin.posts.index');
     }
@@ -130,7 +140,7 @@ class PostController extends Controller
         $count = 1;
 
         while(Post::where('slug',$slug)->first()){
-            $slug = Str::of($data['title'])->slug("-")."-{$count}";
+            $slug = Str::of($title)->slug("-")."-{$count}";
             $count++;
         };
         return $slug;

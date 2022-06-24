@@ -3,14 +3,19 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
+        <div class="col-4 text-center">
             <div class="card my-2">
                 <a href="{{route('admin.posts.index')}}"><h1>Vai ai Post</h1></a>
             </div>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-4 text-center">
             <div class="card my-2">
                 <a href="{{route('admin.categories.index')}}"><h1>Vai alle categorie</h1></a>
+            </div>
+        </div>
+        <div class="col-4 text-center">
+            <div class="card my-2">
+                <a href="{{route('admin.tags.index')}}"><h1>Vai ai tags</h1></a>
             </div>
         </div>
     </div>
